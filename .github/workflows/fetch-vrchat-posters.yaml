@@ -1,0 +1,38 @@
+name: esperecyan/vrchat-postersのファイルを取得
+
+on:
+    workflow_dispatch:
+    schedule:
+        - cron: 46 * * * *
+
+jobs:
+    fetch-vrchat-posters:
+        permissions:
+            contents: write
+        runs-on: ubuntu-20.04
+        steps:
+            - name: メインブランチをチェックアウト
+              uses: actions/checkout@v2
+
+            - name: 「vrchat-posters」フォルダへesperecyan/vrchat-postersのデータを展開
+              uses: actions/checkout@v2
+              with:
+                path: ./vrchat-posters
+                repository: esperecyan/vrchat-posters
+                ref: gh-pages
+
+            - name: 「gh-pages」フォルダへ現在のデータを展開
+              uses: actions/checkout@v2
+              with:
+                path: ./gh-pages
+                ref: master
+
+            - name: ファイルのコピー
+              run: cp vrchat-posters/posters.mp4 gh-pages/vrchat-posters.mp4
+
+            - name: コミット
+              uses: stefanzweifel/git-auto-commit-action@abd87b7d94702070bef78dc1d56b6928b8fa9ecc #v4.12.0
+              with:
+                repository: ./gh-pages
+                branch: master
+                commit_message: esperecyan/vrchat-postersのファイルを取得 (旧バージョンのプレハブを利用しているワールド向け)
