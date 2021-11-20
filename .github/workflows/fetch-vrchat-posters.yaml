@@ -28,7 +28,7 @@ jobs:
                 ref: master
 
             - name: ファイルのコピー
-              run: cp vrchat-posters/posters.mp4 gh-pages/vrchat-posters.mp4
+              run: cp vrchat-posters/posters-quest1.mp4 gh-pages/vrchat-posters.mp4
 
             - name: コミット
               uses: stefanzweifel/git-auto-commit-action@abd87b7d94702070bef78dc1d56b6928b8fa9ecc #v4.12.0
